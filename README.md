@@ -1,76 +1,40 @@
+
 AI News Assistant
-AI News Assistant is a web application that fetches and summarizes news articles, analyzes sentiment, and supports multi-language translation. Users can get news by keyword search, URL summary, or plain text input, all powered by Python Flask backend and modern frontend.
+A powerful web application to fetch, summarize, translate, and analyze news articles using AI-powered tools. Designed for an intuitive user experience with multi-language support and rich article insights.
 
-Features
-Fetch latest news and search news by keywords (supports multiple words).
+🚀 Features
+Latest News Feed: View up-to-date news headlines with images and summaries.
 
-Summarize articles from URLs or plain text input.
+Keyword Search: Search news articles using multiple keywords.
 
-Analyze sentiment (positive, neutral, negative).
+Text Summarization: Paste any article or paragraph to get a concise summary.
 
-Display article metadata: title, author, published date, top image.
+URL Summarization: Summarize news articles directly by entering the URL.
 
-Translate summaries into multiple languages including Indian languages.
+Sentiment Analysis: Understand the sentiment behind articles — positive, neutral, or negative.
 
-Responsive and user-friendly UI with consistent blue/black color palette.
+Multi-language Translation: Translate summaries into English, Hindi, Spanish, French, German, Tamil, Telugu, Marathi, and more.
 
-Tech Stack
-Backend: Python Flask, NewsAPI, Newspaper3k, TextBlob, Googletrans
+Detailed Metadata: Display author names, published date/time, and top images for articles.
 
-Frontend: HTML, CSS, JavaScript (Vanilla)
+Clean UI: Responsive design with a consistent blue and black color palette.
 
-Deployment-ready with Gunicorn for production
-Steps
-Clone the repository
+🛠️ Tech Stack
+Backend: Python, Flask, Newspaper3k, TextBlob, NewsAPI, Googletrans
 
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/ai-news-assistant.git
-cd ai-news-assistant
-Create and activate a virtual environment (optional but recommended)
+Frontend: HTML5, CSS3, Vanilla JavaScript
 
-bash
-Copy
-Edit
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-Install dependencies
+APIs: NewsAPI for fetching news articles, Googletrans for translations
 
-bash
-Copy
-Edit
-pip install -r requirements.txt
-Set environment variables
+Other Libraries: requests, gunicorn (for production)
 
-Create a .env file in the root folder and add your API key:
+📋 Usage
+Get News: View curated news headlines with images and summaries.
 
-ini
-Copy
-Edit
-NEWS_API_KEY=your_newsapi_key_here
-Or export directly:
+Summarize Text: Paste any text block to quickly generate a summary with sentiment details.
 
-bash
-Copy
-Edit
-export NEWS_API_KEY=your_newsapi_key_here  # Linux/Mac
-set NEWS_API_KEY=your_newsapi_key_here     # Windows CMD
-Run the Flask app
+Summarize from URL: Input a news article URL to retrieve its summary, sentiment, author, publish date, and image.
 
-bash
-Copy
-Edit
-flask run
-Open your browser at http://127.0.0.1:5000
-Usage
-Get News: View latest news headlines.
+Search News by Keyword: Enter one or multiple keywords to fetch relevant news articles instantly.
 
-Summarize Text: Paste any text and get a summary with sentiment.
-
-Summarize from URL: Paste an article URL, fetch summary, sentiment, and metadata.
-
-Search News: Enter keywords to fetch related news articles.
-
-License
-MIT License © 2025 Eakshitha KrishnaMurthy
+Choose Language: Select the target language to translate the summarized content.
