@@ -1,0 +1,7 @@
+Flask
+requests
+newspaper3k
+textblob
+newsapi-python
+googletrans==4.0.0-rc1
+gunicorn
