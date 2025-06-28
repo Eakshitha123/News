@@ -3,16 +3,13 @@ from newspaper import Article
 from textblob import TextBlob
 from flask_cors import CORS
 import requests
-from googletrans import Translator
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lex_rank import LexRankSummarizer
-from flask_cors import CORS
 from newsapi import NewsApiClient
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend to talk to backend
-translator = Translator()
 
 newsapi = NewsApiClient(api_key='8f0c6c1305ad4992a325957e93a9c669')
 
@@ -39,7 +36,7 @@ def search_news():
         return jsonify({'error': 'Keyword is required'}), 400
 
     try:
-        newsapi = NewsApiClient(api_key='8f0c6c1305ad4992a325957e93a9c669')
+        newsapi = NewsApiClient(api_key=NEWS_API_KEY)
         results = newsapi.get_everything(q=keyword, language='en', page_size=10)
 
         articles = []
@@ -55,18 +52,15 @@ def search_news():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
 @app.route('/default_news')
 def default_news():
     url = ('https://newsapi.org/v2/top-headlines?'
-           'country=us&'  # You can change country or other params
+           'country=us&'
            f'apiKey={NEWS_API_KEY}')
     try:
         response = requests.get(url)
         data = response.json()
 
-        # Extract required fields from articles
         articles = []
         for item in data.get('articles', []):
             articles.append({
@@ -83,35 +77,27 @@ def default_news():
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Or your main landing page
+    return render_template('index.html')
 
 @app.route('/summarize_text', methods=['POST'])
 def summarize_text():
     data = request.json
     text = data.get('text')
-    target_lang = data.get('language', 'en')
 
     if not text or len(text.strip()) == 0:
         return jsonify({"error": "Text is empty."}), 400
 
     try:
-        # Actual summarization using Sumy (LexRank)
         parser = PlaintextParser.from_string(text, Tokenizer("english"))
         summarizer = LexRankSummarizer()
-        summary_sentences = summarizer(parser.document, 3)  # Get 3 key sentences
+        summary_sentences = summarizer(parser.document, 3)
 
         summary = " ".join(str(sentence) for sentence in summary_sentences)
 
-        # Sentiment analysis
         blob = TextBlob(summary)
         polarity = blob.polarity
         subjectivity = blob.subjectivity
         sentiment = "😊 Positive" if polarity > 0 else "😐 Neutral" if polarity == 0 else "😠 Negative"
-
-        # Translate summary if needed
-        if target_lang != "en":
-            translated = translator.translate(summary, dest=target_lang)
-            summary = translated.text
 
         return jsonify({
             "summary": summary,
@@ -122,15 +108,11 @@ def summarize_text():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-
-   
 
 @app.route('/summarize_url', methods=['POST'])
 def summarize_url():
     data = request.json
     url = data.get('url')
-    target_lang = data.get('language', 'en')  # default to English if no language sent
 
     try:
         article = Article(url)
@@ -138,22 +120,12 @@ def summarize_url():
         article.parse()
         article.nlp()
 
-        summary_en = article.summary
-        title_en = article.title
+        summary = article.summary
+        title = article.title
         authors = article.authors
         top_image = article.top_image
 
-        # Translate if target language is not English
-        if target_lang != 'en':
-            summary = translator.translate(summary_en, dest=target_lang).text
-            title = translator.translate(title_en, dest=target_lang).text
-            # You can translate authors too if you want, but usually names stay same
-        else:
-            summary = summary_en
-            title = title_en
-
-        # Sentiment analysis on the English summary (or translated? Usually English is better)
-        blob = TextBlob(summary_en)
+        blob = TextBlob(summary)
         polarity = blob.polarity
         subjectivity = blob.subjectivity
 
@@ -171,7 +143,6 @@ def summarize_url():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == '__main__':
     app.run(debug=True)
