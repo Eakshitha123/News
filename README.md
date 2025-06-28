@@ -1,40 +1,30 @@
+Project Title: News Summarizer and Sentiment Analyzer Web App
+Description:
+Developed a Flask-based web application that allows users to search, summarize, and analyze the sentiment of news articles. Integrated multiple NLP tools to deliver concise insights from raw news data and supported multilingual summarization using translation APIs.
 
-AI News Assistant
-A powerful web application to fetch, summarize, translate, and analyze news articles using AI-powered tools. Designed for an intuitive user experience with multi-language support and rich article insights.
+Key Features:
 
-🚀 Features
-Latest News Feed: View up-to-date news headlines with images and summaries.
+🔍 News Search & Display: Integrated with NewsAPI to fetch real-time articles based on user-input keywords.
 
-Keyword Search: Search news articles using multiple keywords.
+📰 Text & URL Summarization: Extracted and summarized key points from user-submitted text or online news URLs using the LexRank algorithm (Sumy) and newspaper3k.
 
-Text Summarization: Paste any article or paragraph to get a concise summary.
+🌐 Multilingual Support: Enabled summary translation to various languages using Google Translate API.
 
-URL Summarization: Summarize news articles directly by entering the URL.
+😊 Sentiment Analysis: Performed polarity and subjectivity evaluation using TextBlob for insights into article tone.
 
-Sentiment Analysis: Understand the sentiment behind articles — positive, neutral, or negative.
+🔧 Frontend Integration: Used Flask routes and render_template for rendering HTML templates (index.html, summary.html, url.html, etc.).
 
-Multi-language Translation: Translate summaries into English, Hindi, Spanish, French, German, Tamil, Telugu, Marathi, and more.
+🔐 CORS Configuration: Enabled Cross-Origin Resource Sharing (CORS) to ensure smooth frontend-backend communication.
 
-Detailed Metadata: Display author names, published date/time, and top images for articles.
+☁️ RESTful API Design: Exposed endpoints for summary generation, news search, and analysis in a structured JSON format.
 
-Clean UI: Responsive design with a consistent blue and black color palette.
+Tech Stack:
 
-🛠️ Tech Stack
-Backend: Python, Flask, Newspaper3k, TextBlob, NewsAPI, Googletrans
+Backend: Python, Flask
 
-Frontend: HTML5, CSS3, Vanilla JavaScript
+NLP Libraries: TextBlob, newspaper3k, Sumy (LexRank)
 
-APIs: NewsAPI for fetching news articles, Googletrans for translations
+APIs: NewsAPI, Google Translate
 
-Other Libraries: requests, gunicorn (for production)
+Others: CORS, REST, HTML templates (Jinja2)
 
-📋 Usage
-Get News: View curated news headlines with images and summaries.
-
-Summarize Text: Paste any text block to quickly generate a summary with sentiment details.
-
-Summarize from URL: Input a news article URL to retrieve its summary, sentiment, author, publish date, and image.
-
-Search News by Keyword: Enter one or multiple keywords to fetch relevant news articles instantly.
-
-Choose Language: Select the target language to translate the summarized content.
